@@ -1,28 +1,20 @@
 import React, { Component } from 'react';
 import Layout from '../components/Layout';
 import TodoForm from '../components/TodoForm';
+import api from '../api.js';
 
 export default class TodoListPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      todos: [
-        {
-          id: 1,
-          userId: 1,
-          body: 'React 공부',
-          complete: false,
-          categoryId: 1,
-        },
-        {
-          id: 2,
-          userId: 1,
-          body: 'Redux 공부',
-          complete: false,
-          categoryId: 1,
-        },
-      ],
+      todos: [],
     };
+  }
+  async componentDidMount() {
+    const { data: todos } = await api.get('todos');
+    this.setState({
+      todos: todos.slice(),
+    });
   }
   render() {
     const { todos } = this.state;

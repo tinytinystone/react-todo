@@ -1,0 +1,31 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "fds"
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "공부"
+    },
+    {
+      "id": 2,
+      "name": "집안일"
+    },
+    {
+      "id": 3,
+      "name": "쇼핑"
+    }
+  ],
+  "todos": [
+    {
+      "id": 1,
+      "userId": 1,
+      "body": "React 공부",
+      "complete": false,
+      "categoryId": 1
+    }
+  ]
+}

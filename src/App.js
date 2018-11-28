@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
 import LoginFormPage from './pages/LoginFormPage';
 import TodoListPage from './pages/TodoListPage';
-import './App.css';
+import './App.scss';
 
 class App extends Component {
   render() {
