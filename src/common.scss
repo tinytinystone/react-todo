@@ -1,0 +1,8 @@
+$main-color: #db4c3e;
+$font: 'Hack';
+
+@mixin desktop {
+  @media screen and (min-width: 768px) {
+    @content;
+  }
+}
