@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import Layout from '../components/Layout';
-import TodoForm from '../components/TodoForm';
+import TodoListView from '../components/TodoListView';
 import api from '../api.js';
 
 export default class TodoListPage extends Component {
@@ -18,30 +17,6 @@ export default class TodoListPage extends Component {
   }
   render() {
     const { todos } = this.state;
-    return (
-      <Layout>
-        <h1>관리함</h1>
-        <ul>
-          {todos.map(todo => (
-            <li key={todo.id}>
-              <table>
-                <tbody>
-                  <tr>
-                    <td>
-                      <input type="checkbox" value={todo.complete} />
-                    </td>
-                    <td>
-                      <span>{todo.body}</span>
-                    </td>
-                    <td>{todo.categoryId}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </li>
-          ))}
-        </ul>
-        <TodoForm />
-      </Layout>
-    );
+    return <TodoListView todos={todos} />;
   }
 }
