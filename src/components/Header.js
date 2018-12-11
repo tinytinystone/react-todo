@@ -1,16 +1,41 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-// import classNames from 'classnames';
+import classNames from 'classnames';
 import s from './Header.module.scss';
+import TodoForm from './TodoForm';
+import Nav from './Nav';
 
 export default class Header extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      toggleOn: false,
+      showForm: false,
+    };
+  }
+  handleClick = () => {
+    this.setState(prevState => ({
+      toggleOn: !prevState.toggleOn,
+    }));
+  };
   render() {
+    const toggleClass = classNames(
+      { [s.menuToggle]: !this.state.toggleOn },
+      { [s.menuClose]: this.state.toggleOn }
+    );
     return (
       <React.Fragment>
         <header className={s.header}>
-          <button>NAV</button>
+          <button
+            className={toggleClass}
+            onClick={() => {
+              this.setState(prevState => ({
+                toggleOn: !prevState.toggleOn,
+              }));
+            }}
+          />
           <ul className={s.itemList}>
-            <li key={1} className={s.item}>
+            <li key={1} className={s.item} onClick={this.handleClick}>
               빠른 추가
             </li>
             <li key={2} className={s.item}>
@@ -26,7 +51,9 @@ export default class Header extends Component {
               설정
             </li>
           </ul>
+          {this.state.showForm && <TodoForm />}
         </header>
+        {this.state.toggleOn && <Nav />}
       </React.Fragment>
     );
   }

@@ -3,18 +3,9 @@ import classNames from 'classnames';
 import s from './Nav.module.scss';
 
 export default class Nav extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      show: false,
-    };
-  }
   render() {
-    const navClass = classNames(s.nav, {
-      [s.show]: this.state.show,
-    });
     return (
-      <nav className={navClass}>
+      <nav className={s.nav}>
         <ul>
           <li>관리함</li>
           <li>오늘</li>

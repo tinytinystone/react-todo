@@ -1,12 +1,9 @@
 @import '../common.scss';
 
 .nav {
-  display: none;
+  // display: block;
   width: 275px;
   height: 100vh;
   box-shadow: 5px 0 1px #eeeeee;
   background-color: #fafafa;
-}
-.show {
-  display: block;
 }
