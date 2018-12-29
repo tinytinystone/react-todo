@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import TodoForm from './TodoForm';
 
+import s from './ModalTodoForm.module.scss';
+
 export default class ModalTodoForm extends Component {
   render() {
     return (
-      <React.Fragment>
+      <div className={s.wrap}>
         <TodoForm />
-      </React.Fragment>
+        <button onClick={this.props.addTodo}>X</button>
+      </div>
     );
   }
 }

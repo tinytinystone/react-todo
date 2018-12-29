@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import s from './Header.module.scss';
-import TodoForm from './TodoForm';
+import ModalTodoForm from './ModalTodoForm';
 import Nav from './Nav';
 
 export default class Header extends Component {
@@ -17,6 +17,9 @@ export default class Header extends Component {
     this.setState(prevState => ({
       toggleOn: !prevState.toggleOn,
     }));
+  };
+  addTodo = () => {
+    this.setState(prevState => ({ showForm: !prevState.showForm }));
   };
   render() {
     const toggleClass = classNames(
@@ -35,7 +38,7 @@ export default class Header extends Component {
             }}
           />
           <ul className={s.itemList}>
-            <li key={1} className={s.item} onClick={this.handleClick}>
+            <li key={1} className={s.item} onClick={this.addTodo}>
               빠른 추가
             </li>
             <li key={2} className={s.item}>
@@ -51,7 +54,7 @@ export default class Header extends Component {
               설정
             </li>
           </ul>
-          {this.state.showForm && <TodoForm />}
+          {this.state.showForm && <ModalTodoForm addTodo={this.addTodo} />}
         </header>
         {this.state.toggleOn && <Nav />}
       </React.Fragment>
