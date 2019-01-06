@@ -11,9 +11,15 @@
   display: inline-block;
   padding: 5px 10px;
 }
-.menuToggle::before {
+.menuToggle::after {
   content: '=';
 }
-.menuClose::before {
+.menuClose::after {
   content: 'X';
+}
+.menubar {
+  float: left;
+  padding: 5px;
+  margin-right: 1rem;
+  cursor: pointer;
 }

@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
+import s from './TodoListView.module.scss';
 
 export default class TodoListView extends Component {
   render() {
     const { todos } = this.props;
     return (
       <React.Fragment>
-        <h1>관리함</h1>
+        <h1 className={s.project}>관리함</h1>
         <ul>
           {todos.map(todo => (
-            <li key={todo.id}>
-              <table>
+            <li key={todo.id} className={s.list}>
+              <table className={s.listItem}>
                 <tbody>
                   <tr>
-                    <td>
+                    <td className={s.checkBox}>
                       <input type="checkbox" value={todo.complete} />
                     </td>
                     <td>
-                      <span>{todo.body}</span>
+                      <span className={s.title}>{todo.title}</span>
                     </td>
-                    <td>{todo.categoryId}</td>
                   </tr>
                 </tbody>
               </table>

@@ -6,22 +6,45 @@ export default class TodoForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      category: 1,
+      projects: [],
+      selectedProjectId: 0,
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
-  async handleSubmit(e) {
-    e.preventDefault();
-    const body = e.target.elements.body.value;
-    await api.post('/todos', {
-      body,
+  async componentDidMount() {
+    const { data: projects } = await api.get('/projects');
+    this.setState({
+      projects: projects.slice(),
     });
   }
+  handleChange = async e => {
+    const selectedProjectId = e.target.value;
+    this.setState({
+      selectedProjectId,
+    });
+  };
+  handleSubmit = async e => {
+    e.preventDefault();
+    const body = e.target.elements.body.value;
+    await api.post(`/projects/${this.state.selectedProjectId}/todos`, {
+      title: body,
+    });
+  };
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={e => this.handleSubmit(e)}>
         <div>
           <input type="text" name="body" />
+          <select
+            name="project"
+            value={this.state.selectedProjectId}
+            onChange={this.handleChange}
+          >
+            {this.state.projects.map(p => (
+              <option key={p.id} value={p.id}>
+                {p.title}
+              </option>
+            ))}
+          </select>
           <input type="text" name="due-date" value="12월29일" />
         </div>
         <button>전송</button>

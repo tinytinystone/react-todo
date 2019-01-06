@@ -10,10 +10,11 @@ export default class TodoListPage extends Component {
     };
   }
   async componentDidMount() {
-    const { data: todos } = await api.get('todos');
+    const { data } = await api.get('/todos');
     this.setState({
-      todos: todos.slice(),
+      todos: data.slice(),
     });
+    console.log(data);
   }
   render() {
     const { todos } = this.state;

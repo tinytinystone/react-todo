@@ -3,9 +3,11 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
 import LoginFormPage from './pages/LoginFormPage';
 import TodoListPage from './pages/TodoListPage';
-import './App.scss';
+import RegisterPage from './pages/RegisterPage';
+
+import s from './App.module.scss';
+
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { fab } from '@fortawesome/free-brands-svg-icons';
 import {
   faCalendar,
   faTag,
@@ -22,13 +24,14 @@ class App extends Component {
       <BrowserRouter>
         <Switch>
           <Route path="/login" component={LoginFormPage} />
-          <Route exact path="/todos" component={TodoListPage} />
+          <Route path="/register" component={RegisterPage} />
+          <Route path="/todos" component={TodoListPage} />
           <Route
             exact
             path="/"
             render={() =>
               localStorage.getItem('token') ? (
-                <Redirect to="/todos" />
+                <Redirect to="/" />
               ) : (
                 <Redirect to="/login" />
               )

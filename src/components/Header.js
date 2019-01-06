@@ -23,13 +23,14 @@ export default class Header extends Component {
   };
   render() {
     const toggleClass = classNames(
+      s.menubar,
       { [s.menuToggle]: !this.state.toggleOn },
       { [s.menuClose]: this.state.toggleOn }
     );
     return (
       <React.Fragment>
         <header className={s.header}>
-          <button
+          <div
             className={toggleClass}
             onClick={() => {
               this.setState(prevState => ({
@@ -52,6 +53,9 @@ export default class Header extends Component {
             </li>
             <li key={5} className={s.item}>
               설정
+            </li>
+            <li key={6} className={s.item}>
+              <Link to="/register">회원가입</Link>
             </li>
           </ul>
           {this.state.showForm && <ModalTodoForm addTodo={this.addTodo} />}
