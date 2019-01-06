@@ -6,4 +6,34 @@
   height: 100vh;
   box-shadow: 5px 0 1px #eeeeee;
   background-color: #fafafa;
+  padding-left: 35px;
+}
+.topFilters {
+  padding-top: 1.5rem;
+  margin-bottom: 1.2rem;
+}
+.topFilters li {
+  min-height: 1.7rem;
+  cursor: pointer;
+  padding: 9px 16px 9px 5px;
+  line-height: 1.25;
+  align-items: center;
+}
+.panels {
+  border-bottom: 1px solid #f1f1f1;
+  transition: margin 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+.panelSummary::before {
+  content: '>';
+  color: rgb(119, 119, 119);
+  font-weight: 400;
+  padding-right: 1.5rem;
+}
+.panelSummary {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  padding: 1rem 0;
+  line-height: 1rem;
+  font-weight: 600;
 }
