@@ -3,13 +3,7 @@
 .header {
   background-color: $main-color;
   color: #ffffff;
-}
-.itemList {
-  text-align: right;
-}
-.item {
-  display: inline-block;
-  padding: 5px 10px;
+  height: 37px;
 }
 .menuToggle::after {
   content: '=';
@@ -22,4 +16,41 @@
   padding: 5px;
   margin-right: 1rem;
   cursor: pointer;
+}
+.quickFind {
+  margin: 5px;
+  padding: 5px;
+  border: 1px solid transparent;
+  background: 0;
+  transition: width 0.2s ease-in;
+  width: 6rem;
+  float: left;
+  position: fixed;
+}
+.quickFind::placeholder {
+  color: #fff;
+  opacity: 0.6;
+  font-size: 1.2rem;
+}
+.quickFind:focus {
+  background-color: #fff;
+  width: 300px;
+  z-index: 100;
+  position: fixed;
+  color: black;
+  border-radius: 5px;
+}
+.quickFind:focus::placeholder {
+  color: black;
+  opacity: 0.6;
+}
+.itemList {
+  text-align: right;
+  margin-right: 12px;
+  float: right;
+}
+.item {
+  display: inline-block;
+  padding: 5px 10px;
+  font-weight: 200;
 }

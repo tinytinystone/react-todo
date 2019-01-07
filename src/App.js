@@ -14,9 +14,11 @@ import {
   faClock,
   faFlag,
   faComment,
+  faCog,
+  faBell,
 } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faCalendar, faTag, faClock, faFlag, faComment);
+library.add(faCalendar, faTag, faClock, faFlag, faComment, faCog, faBell);
 
 class App extends Component {
   render() {
@@ -31,7 +33,7 @@ class App extends Component {
             path="/"
             render={() =>
               localStorage.getItem('token') ? (
-                <Redirect to="/" />
+                <Redirect to="/todos" />
               ) : (
                 <Redirect to="/login" />
               )
