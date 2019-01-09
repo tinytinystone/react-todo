@@ -7,17 +7,17 @@
   position: fixed;
   width: 100%;
 }
-.menuToggle::after {
+.menubar::after {
   content: '=';
-}
-.menuClose::after {
-  content: 'X';
 }
 .menubar {
   float: left;
   padding: 5px;
   margin-right: 1rem;
   cursor: pointer;
+}
+.menuToggle::after {
+  content: 'X';
 }
 .quickFind {
   margin: 5px;

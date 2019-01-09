@@ -5,7 +5,7 @@ import s from './TodoListView.module.scss';
 
 class TodoListView extends Component {
   render() {
-    const { todos, projects, project } = this.props;
+    const { todos, project } = this.props;
     return (
       <React.Fragment>
         <h1 className={s.project}>{project.title}</h1>

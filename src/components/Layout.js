@@ -10,8 +10,7 @@ class Layout extends Component {
     return (
       <React.Fragment>
         {/* 
-          REVIEW:
-          아래 Header 내부의 children이 필요없어 보입니다.
+          AFTER REVIEW: Header 내부 child 삭제
         */}
         <Header key={location.pathname} />
         <main className={s.main}>{this.props.children}</main>

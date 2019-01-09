@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import s from './Nav.module.scss';
-import api from '../api';
+
 import ProjectForm from './ProjectForm';
 import { Link } from 'react-router-dom';
 import { withProject } from '../contexts/ProjectContext';
+
+import s from './Nav.module.scss';
 
 class Nav extends Component {
   constructor(props) {
