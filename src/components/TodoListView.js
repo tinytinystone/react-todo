@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import withLoading from '../hoc/WithLoading';
+
 import s from './TodoListView.module.scss';
 
-export default class TodoListView extends Component {
+class TodoListView extends Component {
   render() {
     const { todos } = this.props;
     return (
@@ -29,3 +31,5 @@ export default class TodoListView extends Component {
     );
   }
 }
+
+export default withLoading(TodoListView);
