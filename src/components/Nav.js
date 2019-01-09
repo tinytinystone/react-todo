@@ -28,7 +28,9 @@ export default class Nav extends Component {
     return (
       <nav className={s.nav}>
         <ul className={s.topFilters}>
-          <li>관리함</li>
+          <Link to={'/projects/' + 1}>
+            <li>관리함</li>
+          </Link>
           <li>오늘</li>
           <li>다음 7일</li>
         </ul>

@@ -16,9 +16,10 @@ export default class TodoListPage extends Component {
     }));
   };
   render() {
+    const { projectId } = this.props.match.params;
     return (
       <Layout>
-        <TodoList projectId={this.props.match.params.projectId} />
+        <TodoList projectId={projectId} key={projectId} />
         <button onClick={this.handleClick}>작업 추가</button>
         {this.state.showForm && <TodoForm />}
       </Layout>

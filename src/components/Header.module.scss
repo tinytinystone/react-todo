@@ -4,6 +4,8 @@
   background-color: $main-color;
   color: #ffffff;
   height: 37px;
+  position: fixed;
+  width: 100%;
 }
 .menuToggle::after {
   content: '=';

@@ -28,6 +28,7 @@ class App extends Component {
           <Route path="/login" component={LoginFormPage} />
           <Route path="/register" component={RegisterPage} />
           <Route path="/todos" component={TodoListPage} />
+          <Route path="/projects/:projectId" component={TodoListPage} />
           <Route
             exact
             path="/"
