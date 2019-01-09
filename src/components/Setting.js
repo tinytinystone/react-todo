@@ -27,6 +27,10 @@ export default class Setting extends Component {
         <ul className={s.menuItemApps}>
           <span>앱</span>
           <li className={s.android}>
+            {/* 
+              REVIEW:
+              SVG 사용법: https://facebook.github.io/create-react-app/docs/adding-images-fonts-and-files
+            */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"

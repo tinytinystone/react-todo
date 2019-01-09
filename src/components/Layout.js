@@ -9,7 +9,11 @@ class Layout extends Component {
     const { location } = this.props;
     return (
       <React.Fragment>
-        <Header key={location.pathname}>헤더</Header>
+        {/* 
+          REVIEW:
+          아래 Header 내부의 children이 필요없어 보입니다.
+        */}
+        <Header key={location.pathname} />
         <main className={s.main}>{this.props.children}</main>
       </React.Fragment>
     );
