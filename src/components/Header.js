@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
+
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
-import s from './Header.module.scss';
+
 import ModalTodoForm from './ModalTodoForm';
 import Nav from './Nav';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Setting from './Setting';
 
-export default class Header extends Component {
+import s from './Header.module.scss';
+import { withUser } from '../contexts/UserContext';
+
+class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -42,12 +45,22 @@ export default class Header extends Component {
             <li key={1} className={s.item} onClick={this.addTodo}>
               +
             </li>
-            <li key={2} className={s.item}>
-              <Link to="/login">login</Link>
-            </li>
-            <li key={3} className={s.item}>
-              <Link to="/register">가입</Link>
-            </li>
+            {this.props.token ? (
+              <li
+                key={3}
+                className={s.item}
+                onClick={() => {
+                  this.props.logout();
+                  alert('로그아웃 되었습니다.');
+                }}
+              >
+                logout
+              </li>
+            ) : (
+              <li key={2} className={s.item}>
+                <Link to="/login">login</Link>
+              </li>
+            )}
             <li key={4} className={s.item}>
               <FontAwesomeIcon icon="bell" />
             </li>
@@ -71,3 +84,5 @@ export default class Header extends Component {
     );
   }
 }
+
+export default withUser(Header);

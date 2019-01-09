@@ -1,16 +1,6 @@
 import React, { Component } from 'react';
-import api from '../api';
 
 export default class Register extends Component {
-  onRegister = async e => {
-    e.preventDefault();
-    const email = e.target.elements.email.value;
-    const password = e.target.elements.password.value;
-    const token = await api.post('auth/register', {
-      email,
-      password,
-    });
-  };
   render() {
     return (
       <React.Fragment>
