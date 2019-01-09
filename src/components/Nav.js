@@ -1,30 +1,19 @@
 import React, { Component } from 'react';
-import classNames from 'classnames';
 import s from './Nav.module.scss';
 import api from '../api';
 import ProjectForm from './ProjectForm';
 import { Link } from 'react-router-dom';
+import { withProject } from '../contexts/ProjectContext';
 
-export default class Nav extends Component {
+class Nav extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      projects: [],
       showProjectForm: false,
     };
   }
-  async componentDidMount() {
-    const { data: projects } = await api.get('projects');
-    this.setState({
-      projects: projects.slice(),
-    });
-  }
-  addProject = () => {
-    this.setState(prevState => ({
-      showProjectForm: !prevState.showProjectForm,
-    }));
-  };
   render() {
+    const { projects, addProject } = this.props;
     return (
       <nav className={s.nav}>
         <ul className={s.topFilters}>
@@ -37,15 +26,25 @@ export default class Nav extends Component {
         <div className={s.panels}>
           <div className={s.project}>
             <span className={s.panelSummary}>프로젝트</span>
-            {this.state.showProjectForm && <ProjectForm />}
+            {this.state.showProjectForm && (
+              <ProjectForm addProject={addProject} />
+            )}
             <ul>
-              {this.state.projects.map(p => (
+              {projects.map(p => (
                 <Link to={'/projects/' + p.id} key={p.id}>
                   <li key={p.id}>{p.title}</li>
                 </Link>
               ))}
             </ul>
-            <button onClick={this.addProject}>+</button>
+            <button
+              onClick={() => {
+                this.setState(prevState => ({
+                  showProjectForm: !prevState.showProjectForm,
+                }));
+              }}
+            >
+              +
+            </button>
           </div>
         </div>
         <div className={s.panels}>
@@ -58,3 +57,5 @@ export default class Nav extends Component {
     );
   }
 }
+
+export default withProject(Nav);

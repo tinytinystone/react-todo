@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { UserProvider } from './contexts/UserContext';
 
 import LoginFormPage from './pages/LoginFormPage';
 import TodoListPage from './pages/TodoListPage';
@@ -17,6 +18,7 @@ import {
   faCog,
   faBell,
 } from '@fortawesome/free-solid-svg-icons';
+import { ProjectProvider } from './contexts/ProjectContext';
 
 library.add(faCalendar, faTag, faClock, faFlag, faComment, faCog, faBell);
 
@@ -24,23 +26,26 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <Switch>
-          <Route path="/login" component={LoginFormPage} />
-          <Route path="/register" component={RegisterPage} />
-          <Route path="/todos" component={TodoListPage} />
-          <Route path="/projects/:projectId" component={TodoListPage} />
-          <Route
-            exact
-            path="/"
-            render={() =>
-              localStorage.getItem('token') ? (
-                <Redirect to="/todos" />
-              ) : (
-                <Redirect to="/login" />
-              )
-            }
-          />
-        </Switch>
+        <UserProvider>
+          <ProjectProvider>
+            <Switch>
+              <Route path="/login" component={LoginFormPage} />
+              <Route path="/register" component={RegisterPage} />
+              <Route path="/projects/:projectId" component={TodoListPage} />
+              <Route
+                exact
+                path="/"
+                render={() =>
+                  localStorage.getItem('token') ? (
+                    <Redirect to="/projects/1" />
+                  ) : (
+                    <Redirect to="/login" />
+                  )
+                }
+              />
+            </Switch>
+          </ProjectProvider>
+        </UserProvider>
       </BrowserRouter>
     );
   }

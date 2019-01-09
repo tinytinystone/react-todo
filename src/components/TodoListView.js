@@ -5,10 +5,10 @@ import s from './TodoListView.module.scss';
 
 class TodoListView extends Component {
   render() {
-    const { todos } = this.props;
+    const { todos, projects, project } = this.props;
     return (
       <React.Fragment>
-        <h1 className={s.project}>관리함</h1>
+        <h1 className={s.project}>{project.title}</h1>
         <ul>
           {todos.map(todo => (
             <li key={todo.id} className={s.list}>

@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import TodoListView from '../components/TodoListView';
 
 import api from '../api.js';
+import { withProject } from '../contexts/ProjectContext';
+import { withRouter } from 'react-router';
 
-export default class TodoList extends Component {
+class TodoList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,6 +29,19 @@ export default class TodoList extends Component {
   }
   render() {
     const { todos, loading } = this.state;
-    return <TodoListView todos={todos} loading={loading} />;
+    const { projects, match } = this.props;
+    const project = projects.find(
+      p => parseInt(p.id) === parseInt(match.params.projectId)
+    );
+    return (
+      <TodoListView
+        todos={todos}
+        loading={loading}
+        projects={projects}
+        project={project}
+      />
+    );
   }
 }
+
+export default withRouter(withProject(TodoList));
