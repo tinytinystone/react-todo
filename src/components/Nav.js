@@ -15,6 +15,11 @@ export default class Nav extends Component {
   }
   async componentDidMount() {
     const { data: projects } = await api.get('projects');
+    /*
+      REVIEW:
+      위 projects는 axios에서 새로 만들어준 배열이기 때문에,
+      명시적으로 slice를 해 줄 필요가 없습니다.
+     */
     this.setState({
       projects: projects.slice(),
     });

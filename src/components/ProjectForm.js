@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import api from '../api';
 
 export default class ProjectForm extends Component {
+  /*
+    REVIEW:
+    이런 함수들을 context에 두면 될 것 같습니다. 
+   */
   handleProjectSubmit = async e => {
     e.preventDefault();
     const title = e.target.elements.title.value;
