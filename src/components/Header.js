@@ -6,6 +6,7 @@ import ModalTodoForm from './ModalTodoForm';
 import Nav from './Nav';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Setting from './Setting';
 
 export default class Header extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ export default class Header extends Component {
     this.state = {
       toggleOn: false,
       showForm: false,
+      showSetting: false,
     };
   }
   addTodo = () => {
@@ -49,13 +51,22 @@ export default class Header extends Component {
             <li key={4} className={s.item}>
               <FontAwesomeIcon icon="bell" />
             </li>
-            <li key={5} className={s.item}>
+            <li
+              key={5}
+              className={s.item}
+              onClick={() => {
+                this.setState(prevState => ({
+                  showSetting: !prevState.showSetting,
+                }));
+              }}
+            >
               <FontAwesomeIcon icon="cog" />
             </li>
           </ul>
           {this.state.showForm && <ModalTodoForm addTodo={this.addTodo} />}
         </header>
         {this.state.toggleOn && <Nav />}
+        {this.state.showSetting && <Setting />}
       </React.Fragment>
     );
   }
