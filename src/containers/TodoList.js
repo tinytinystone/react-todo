@@ -4,12 +4,14 @@ import TodoListView from '../components/TodoListView';
 import api from '../api.js';
 import { withProject } from '../contexts/ProjectContext';
 import { withRouter } from 'react-router';
+import CompletedTodoListView from '../components/CompletedTodoListView';
 
 class TodoList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      todos: [],
+      incompleteTodos: [],
+      completedTodos: [],
       loading: true,
     };
   }
@@ -19,8 +21,11 @@ class TodoList extends Component {
   refreshTodoList = async () => {
     const { projectId } = this.props.match.params;
     const { data } = await api.get('/projects/' + projectId + '/todos');
+    const incompleteTodos = data.filter(t => t.complete === false);
+    const completedTodos = data.filter(t => t.complete === true);
     this.setState({
-      todos: data,
+      incompleteTodos,
+      completedTodos,
       loading: false,
     });
   };
@@ -31,14 +36,17 @@ class TodoList extends Component {
     this.refreshTodoList();
   };
   render() {
-    const { todos } = this.state;
+    const { incompleteTodos, completedTodos } = this.state;
     const { projects } = this.props;
     return (
-      <TodoListView
-        todos={todos}
-        projects={projects}
-        completeTodo={this.completeTodo}
-      />
+      <React.Fragment>
+        <TodoListView
+          incompleteTodos={incompleteTodos}
+          projects={projects}
+          completeTodo={this.completeTodo}
+        />
+        <CompletedTodoListView completedTodos={completedTodos} />
+      </React.Fragment>
     );
   }
 }

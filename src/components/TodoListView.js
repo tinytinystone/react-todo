@@ -22,7 +22,7 @@ class TodoListView extends Component {
     this.props.completeTodo(todoId);
   };
   render() {
-    const { todos, projects, match } = this.props;
+    const { incompleteTodos, projects, match } = this.props;
     const project = projects.find(
       p => parseInt(p.id) === parseInt(match.params.projectId)
     );
@@ -30,7 +30,7 @@ class TodoListView extends Component {
       <React.Fragment>
         <ul>
           {project && <h1 className={s.project}>{project.title}</h1>}
-          {todos.map(todo => (
+          {incompleteTodos.map(todo => (
             <li key={todo.id} className={s.list}>
               <table className={s.listItem}>
                 <tbody>
