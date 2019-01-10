@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { BrowserRouter, Route, Redirect } from 'react-router-dom';
+
 import api from '../api';
 
 const { Provider, Consumer } = React.createContext();
@@ -23,7 +25,27 @@ class ProjectProvider extends Component {
     this.setState({ projects });
   };
   render() {
-    return <Provider value={this.state}>{this.props.children}</Provider>;
+    const projectWelcome = this.state.projects.find(
+      p => p.title === '환영합니다👋'
+    );
+    return (
+      <React.Fragment>
+        {projectWelcome && (
+          <Route
+            exact
+            path="/"
+            render={() =>
+              localStorage.getItem('token') ? (
+                <Redirect to={`/projects/${projectWelcome.id}`} />
+              ) : (
+                <Redirect to="/login" />
+              )
+            }
+          />
+        )}
+        <Provider value={this.state}>{this.props.children}</Provider>
+      </React.Fragment>
+    );
   }
 }
 

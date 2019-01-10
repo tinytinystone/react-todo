@@ -34,10 +34,12 @@ export default class UserProvider extends Component {
     });
   };
   register = async (email, password) => {
-    await api.post('auth/register', {
+    const { data } = await api.post('auth/register', {
       email,
       password,
     });
+    localStorage.setItem('token', data);
+    this.setState({ email, password, token: data });
   };
 
   render() {

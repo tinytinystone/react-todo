@@ -4,6 +4,7 @@ import TodoList from '../containers/TodoList';
 import TodoForm from '../containers/TodoForm';
 import withRouter from 'react-router/withRouter';
 import { TodoProvider } from '../contexts/TodoContext';
+import { withUser } from '../contexts/UserContext';
 
 class TodoListPage extends Component {
   constructor(props) {
@@ -35,4 +36,4 @@ class TodoListPage extends Component {
   }
 }
 
-export default withRouter(TodoListPage);
+export default withUser(withRouter(TodoListPage));
