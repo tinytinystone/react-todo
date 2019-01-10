@@ -3,6 +3,7 @@ import Layout from '../components/Layout';
 import TodoList from '../containers/TodoList';
 import TodoForm from '../containers/TodoForm';
 import withRouter from 'react-router/withRouter';
+import { TodoProvider } from '../contexts/TodoContext';
 
 class TodoListPage extends Component {
   constructor(props) {
@@ -17,15 +18,19 @@ class TodoListPage extends Component {
     }));
   };
   render() {
-    const { match } = this.props;
+    const {
+      match: {
+        params: { projectId },
+      },
+    } = this.props;
     return (
-      <Layout>
-        <TodoList key={match.params.projectId} />
-        <button onClick={this.handleClick}>작업 추가</button>
-        {this.state.showForm && (
-          <TodoForm currentProjectId={match.params.projectId} />
-        )}
-      </Layout>
+      <TodoProvider key={projectId} currentProjectId={projectId}>
+        <Layout>
+          <TodoList key={projectId} />
+          <button onClick={this.handleClick}>작업 추가</button>
+          {this.state.showForm && <TodoForm />}
+        </Layout>
+      </TodoProvider>
     );
   }
 }

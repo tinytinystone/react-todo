@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 
-import api from '../api';
-
 import { withProject } from '../contexts/ProjectContext';
 import TodoFormView from '../components/TodoFormView';
+import { withTodo } from '../contexts/TodoContext';
 
 class TodoForm extends Component {
   constructor(props) {
@@ -12,18 +11,16 @@ class TodoForm extends Component {
       loading: true,
     };
   }
-  submitTodo = async (projectId, title) => {
-    await api.post(`/projects/${projectId}/todos`, {
-      title,
-    });
-    this.setState({
-      loading: false,
-    });
-  };
   render() {
-    const { projects } = this.props;
-    return <TodoFormView projects={projects} submitTodo={this.submitTodo} />;
+    const { currentProjectId, addTodo, projects } = this.props;
+    return (
+      <TodoFormView
+        currentProjectId={currentProjectId}
+        addTodo={addTodo}
+        projects={projects}
+      />
+    );
   }
 }
 
-export default withProject(TodoForm);
+export default withTodo(withProject(TodoForm));

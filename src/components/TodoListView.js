@@ -2,29 +2,16 @@ import React, { Component } from 'react';
 import withLoading from '../hoc/WithLoading';
 
 import s from './TodoListView.module.scss';
-import { withRouter } from 'react-router';
 
 class TodoListView extends Component {
-  static defaultProps = {
-    projects: [
-      {
-        id: null,
-      },
-    ],
-    match: {
-      params: {
-        projectId: null,
-      },
-    },
-  };
   handleComplete = (e, todoId) => {
     e.preventDefault();
     this.props.completeTodo(todoId);
   };
   render() {
-    const { incompleteTodos, projects, match } = this.props;
+    const { incompleteTodos, projects, currentProjectId } = this.props;
     const project = projects.find(
-      p => parseInt(p.id) === parseInt(match.params.projectId)
+      p => parseInt(p.id) === parseInt(currentProjectId)
     );
     return (
       <React.Fragment>
@@ -56,4 +43,4 @@ class TodoListView extends Component {
   }
 }
 
-export default withRouter(withLoading(TodoListView));
+export default withLoading(TodoListView);

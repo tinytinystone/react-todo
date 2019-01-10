@@ -1,20 +1,12 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import withRouter from 'react-router/withRouter';
 
 class TodoFormView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedProjectId: 0,
+      selectedProjectId: props.currentProjectId,
     };
-  }
-  // FIXME: 왜 value 값이 선택되지 않을까?
-  componentDidMount() {
-    const { currentProjectId } = this.props;
-    this.setState({
-      selectedProjectId: currentProjectId,
-    });
   }
   handleChange = e => {
     const selectedProjectId = e.target.value;
@@ -25,7 +17,7 @@ class TodoFormView extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const title = e.target.elements.title.value;
-    this.props.submitTodo(this.state.selectedProjectId, title);
+    this.props.addTodo(this.state.selectedProjectId, title);
   };
   render() {
     const { projects } = this.props;
@@ -69,4 +61,4 @@ class TodoFormView extends Component {
   }
 }
 
-export default withRouter(TodoFormView);
+export default TodoFormView;
