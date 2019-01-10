@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import TodoForm from './TodoForm';
+import TodoForm from '../containers/TodoForm';
 
 import s from './ModalTodoForm.module.scss';
 

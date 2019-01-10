@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import Layout from '../components/Layout';
 import TodoList from '../containers/TodoList';
-import TodoForm from '../components/TodoForm';
+import TodoForm from '../containers/TodoForm';
+import withRouter from 'react-router/withRouter';
 
-export default class TodoListPage extends Component {
+class TodoListPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,13 +17,17 @@ export default class TodoListPage extends Component {
     }));
   };
   render() {
-    const { projectId } = this.props.match.params;
+    const { match } = this.props;
     return (
       <Layout>
-        <TodoList projectId={projectId} key={projectId} />
+        <TodoList key={match.params.projectId} />
         <button onClick={this.handleClick}>작업 추가</button>
-        {this.state.showForm && <TodoForm />}
+        {this.state.showForm && (
+          <TodoForm currentProjectId={match.params.projectId} />
+        )}
       </Layout>
     );
   }
 }
+
+export default withRouter(TodoListPage);

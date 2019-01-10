@@ -13,32 +13,31 @@ class TodoList extends Component {
       loading: true,
     };
   }
-  async componentDidMount() {
-    if (this.props.projectId) {
-      const { data } = await api.get(
-        '/projects/' + this.props.projectId + '/todos'
-      );
-      this.setState({
-        todos: data.slice(),
-        loading: false,
-      });
-    } else {
-      const { data } = await api.get('/todos');
-      this.setState({ todos: data.slice(), loading: false });
-    }
-  }
+  componentDidMount = () => {
+    this.refreshTodoList();
+  };
+  refreshTodoList = async () => {
+    const { projectId } = this.props.match.params;
+    const { data } = await api.get('/projects/' + projectId + '/todos');
+    this.setState({
+      todos: data,
+      loading: false,
+    });
+  };
+  completeTodo = async todoId => {
+    await api.patch('/todos/' + todoId, {
+      complete: true,
+    });
+    this.refreshTodoList();
+  };
   render() {
-    const { todos, loading } = this.state;
-    const { projects, match } = this.props;
-    const project = projects.find(
-      p => parseInt(p.id) === parseInt(match.params.projectId)
-    );
+    const { todos } = this.state;
+    const { projects } = this.props;
     return (
       <TodoListView
         todos={todos}
-        loading={loading}
         projects={projects}
-        project={project}
+        completeTodo={this.completeTodo}
       />
     );
   }

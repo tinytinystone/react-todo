@@ -1,51 +1,50 @@
 import React, { Component } from 'react';
-import api from '../api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import withRouter from 'react-router/withRouter';
 
-export default class TodoForm extends Component {
+class TodoFormView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      projects: [],
       selectedProjectId: 0,
     };
   }
-  async componentDidMount() {
-    const { data: projects } = await api.get('/projects');
+  // FIXME: 왜 value 값이 선택되지 않을까?
+  componentDidMount() {
+    const { currentProjectId } = this.props;
     this.setState({
-      projects: projects.slice(),
+      selectedProjectId: currentProjectId,
     });
   }
-  handleChange = async e => {
+  handleChange = e => {
     const selectedProjectId = e.target.value;
     this.setState({
       selectedProjectId,
     });
   };
-  handleSubmit = async e => {
+  handleSubmit = e => {
     e.preventDefault();
-    const body = e.target.elements.body.value;
-    await api.post(`/projects/${this.state.selectedProjectId}/todos`, {
-      title: body,
-    });
+    const title = e.target.elements.title.value;
+    this.props.submitTodo(this.state.selectedProjectId, title);
   };
   render() {
+    const { projects } = this.props;
     return (
-      <form onSubmit={e => this.handleSubmit(e)}>
+      <form onSubmit={this.handleSubmit}>
         <div>
-          <input type="text" name="body" />
+          <input type="text" name="title" />
           <select
             name="project"
             value={this.state.selectedProjectId}
             onChange={this.handleChange}
           >
-            {this.state.projects.map(p => (
+            {projects.map(p => (
               <option key={p.id} value={p.id}>
                 {p.title}
               </option>
             ))}
           </select>
-          <input type="text" name="due-date" value="12월29일" />
+          <input type="text" name="due-date" defaultValue="12월29일" />
         </div>
         <button>전송</button>
         <div>
@@ -69,3 +68,5 @@ export default class TodoForm extends Component {
     );
   }
 }
+
+export default withRouter(TodoFormView);
