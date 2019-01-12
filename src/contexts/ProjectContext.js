@@ -34,6 +34,7 @@ class ProjectProvider extends Component {
       <React.Fragment>
         {projectWelcome && (
           <Route
+            exact
             path="/app"
             render={() => (
               <Redirect to={`/app/projects/${projectWelcome.id}`} />
