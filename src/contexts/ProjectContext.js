@@ -14,7 +14,9 @@ class ProjectProvider extends Component {
     };
   }
   async componentDidMount() {
-    this.refreshPage();
+    if (localStorage.getItem('token')) {
+      this.refreshPage();
+    }
   }
   addProject = async title => {
     await api.post('/projects', { title });
@@ -32,15 +34,10 @@ class ProjectProvider extends Component {
       <React.Fragment>
         {projectWelcome && (
           <Route
-            exact
-            path="/"
-            render={() =>
-              localStorage.getItem('token') ? (
-                <Redirect to={`/projects/${projectWelcome.id}`} />
-              ) : (
-                <Redirect to="/login" />
-              )
-            }
+            path="/app"
+            render={() => (
+              <Redirect to={`/app/projects/${projectWelcome.id}`} />
+            )}
           />
         )}
         <Provider value={this.state}>{this.props.children}</Provider>

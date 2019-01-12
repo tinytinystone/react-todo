@@ -10,6 +10,7 @@ import Setting from './Setting';
 
 import s from './Header.module.scss';
 import { withUser } from '../contexts/UserContext';
+import { Redirect } from 'react-router';
 
 class Header extends Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class Header extends Component {
       toggleOn: false,
       showForm: false,
       showSetting: false,
+      logoutSuccess: false,
     };
   }
   addTodo = () => {
@@ -32,6 +34,10 @@ class Header extends Component {
     const toggleClass = classNames(s.menubar, {
       [s.menuToggle]: this.state.toggleOn,
     });
+    const { logoutSuccess } = this.state;
+    if (logoutSuccess) {
+      return <Redirect to="/" />;
+    }
     return (
       <React.Fragment>
         <header className={s.header}>
@@ -51,21 +57,18 @@ class Header extends Component {
             <li className={s.item} onClick={this.addTodo}>
               +
             </li>
-            {this.props.token ? (
-              <li
-                className={s.item}
-                onClick={() => {
-                  this.props.logout();
-                  alert('로그아웃 되었습니다.');
-                }}
-              >
-                logout
-              </li>
-            ) : (
-              <li className={s.item}>
-                <Link to="/login">login</Link>
-              </li>
-            )}
+            <li
+              className={s.item}
+              onClick={() => {
+                this.props.logout();
+                alert('로그아웃 되었습니다.');
+                this.setState({
+                  logoutSuccess: true,
+                });
+              }}
+            >
+              logout
+            </li>
             <li className={s.item}>
               <FontAwesomeIcon icon="bell" />
             </li>

@@ -15,10 +15,11 @@ class Nav extends Component {
   }
   render() {
     const { projects, addProject } = this.props;
+    console.log(projects);
     return (
       <nav className={s.nav}>
         <ul className={s.topFilters}>
-          <Link to={'/projects/' + 1}>
+          <Link to={'/app/projects/' + 1}>
             <li>관리함</li>
           </Link>
           <li>오늘</li>
@@ -32,7 +33,7 @@ class Nav extends Component {
             )}
             <ul>
               {projects.map(p => (
-                <Link to={'/projects/' + p.id} key={p.id}>
+                <Link to={'/app/projects/' + p.id} key={p.id}>
                   <li key={p.id}>{p.title}</li>
                 </Link>
               ))}

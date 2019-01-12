@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import Layout from '../components/Layout';
 import TodoList from '../containers/TodoList';
 import TodoForm from '../containers/TodoForm';
-import withRouter from 'react-router/withRouter';
+import { withRouter, Route } from 'react-router-dom';
 import { TodoProvider } from '../contexts/TodoContext';
 import { withUser } from '../contexts/UserContext';
+import { Redirect } from 'react-router';
 
 class TodoListPage extends Component {
   constructor(props) {
@@ -24,6 +25,9 @@ class TodoListPage extends Component {
         params: { projectId },
       },
     } = this.props;
+    // const projectWelcome = this.pros.projects.find(
+    //   p => p.title === '환영합니다👋'
+    // );
     return (
       <TodoProvider key={projectId} currentProjectId={projectId}>
         <Layout>

@@ -31,7 +31,18 @@ class App extends Component {
             <Switch>
               <Route path="/login" component={LoginFormPage} />
               <Route path="/register" component={RegisterPage} />
-              <Route path="/projects/:projectId" component={TodoListPage} />
+              <Route path="/app/projects/:projectId" component={TodoListPage} />
+              <Route
+                exact
+                path="/"
+                render={() =>
+                  localStorage.getItem('token') ? (
+                    <Redirect to="/app" />
+                  ) : (
+                    <Redirect to="/login" />
+                  )
+                }
+              />
             </Switch>
           </ProjectProvider>
         </UserProvider>

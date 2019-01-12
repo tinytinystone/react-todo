@@ -4,10 +4,6 @@ import LoginForm from '../containers/LoginForm';
 
 export default class LoginFormPage extends Component {
   render() {
-    return (
-      <Layout>
-        <LoginForm />
-      </Layout>
-    );
+    return <LoginForm />;
   }
 }
