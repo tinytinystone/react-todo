@@ -27,24 +27,22 @@ class App extends Component {
     return (
       <BrowserRouter>
         <UserProvider>
-          <ProjectProvider>
-            <Switch>
-              <Route path="/login" component={LoginFormPage} />
-              <Route path="/register" component={RegisterPage} />
-              <Route path="/app/projects/:projectId" component={TodoListPage} />
-              <Route
-                exact
-                path="/"
-                render={() =>
-                  localStorage.getItem('token') ? (
-                    <Redirect to="/app" />
-                  ) : (
-                    <Redirect to="/login" />
-                  )
-                }
-              />
-            </Switch>
-          </ProjectProvider>
+          <Switch>
+            <Route path="/login" component={LoginFormPage} />
+            <Route path="/register" component={RegisterPage} />
+            <Route path="/app" component={TodoListPage} />
+            <Route
+              exact
+              path="/"
+              render={() =>
+                localStorage.getItem('token') ? (
+                  <Redirect to="/app" />
+                ) : (
+                  <Redirect to="/login" />
+                )
+              }
+            />
+          </Switch>
         </UserProvider>
       </BrowserRouter>
     );

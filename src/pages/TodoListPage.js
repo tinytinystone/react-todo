@@ -6,6 +6,7 @@ import { withRouter, Route } from 'react-router-dom';
 import { TodoProvider } from '../contexts/TodoContext';
 import { withUser } from '../contexts/UserContext';
 import { Redirect } from 'react-router';
+import { ProjectProvider } from '../contexts/ProjectContext';
 
 class TodoListPage extends Component {
   constructor(props) {
@@ -29,13 +30,20 @@ class TodoListPage extends Component {
     //   p => p.title === '환영합니다👋'
     // );
     return (
-      <TodoProvider key={projectId} currentProjectId={projectId}>
-        <Layout>
-          <TodoList key={projectId} />
-          <button onClick={this.handleClick}>작업 추가</button>
-          {this.state.showForm && <TodoForm />}
-        </Layout>
-      </TodoProvider>
+      <ProjectProvider>
+        <Route path="/app/projects/:projectId" render={({match}) => {
+          const projectId = match.params.projectId
+          return (
+            <TodoProvider key={projectId} currentProjectId={projectId}>
+              <Layout>
+                <TodoList key={projectId} />
+                <button onClick={this.handleClick}>작업 추가</button>
+                {this.state.showForm && <TodoForm />}
+              </Layout>
+            </TodoProvider>
+          )
+        }} />
+      </ProjectProvider>
     );
   }
 }

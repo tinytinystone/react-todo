@@ -9,6 +9,7 @@ export default class UserProvider extends Component {
     this.state = {
       email: null,
       password: null,
+      // localStorage에 저장된 토큰이 single source of truth.
       token: null,
       login: this.login,
       logout: this.logout,
@@ -46,6 +47,8 @@ export default class UserProvider extends Component {
     return <Provider value={this.state}>{this.props.children}</Provider>;
   }
 }
+
+UserProvider = withProject(UserProvider)
 
 function withUser(WrappedComponent) {
   return function(props) {
