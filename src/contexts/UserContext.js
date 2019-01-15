@@ -48,8 +48,6 @@ export default class UserProvider extends Component {
   }
 }
 
-UserProvider = withProject(UserProvider)
-
 function withUser(WrappedComponent) {
   return function(props) {
     return (

@@ -6,8 +6,6 @@ import LoginFormPage from './pages/LoginFormPage';
 import TodoListPage from './pages/TodoListPage';
 import RegisterPage from './pages/RegisterPage';
 
-import s from './App.module.scss';
-
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faCalendar,
@@ -18,7 +16,6 @@ import {
   faCog,
   faBell,
 } from '@fortawesome/free-solid-svg-icons';
-import { ProjectProvider } from './contexts/ProjectContext';
 
 library.add(faCalendar, faTag, faClock, faFlag, faComment, faCog, faBell);
 
