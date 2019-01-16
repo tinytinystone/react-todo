@@ -1,29 +1,16 @@
 import React, { Component } from 'react';
 import { withUser } from '../contexts/UserContext';
-import { Redirect } from 'react-router';
+import { Redirect, Link } from 'react-router-dom';
+import UserFormView from '../components/UserFormView';
+import s from '../components/LoginFormView.module.scss';
 
 class Register extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       registerSuccess: false,
     };
   }
-
-  handleRegister = async e => {
-    e.preventDefault();
-    const email = e.target.elements.email.value;
-    const password = e.target.elements.password.value;
-    try {
-      await this.props.register(email, password);
-      this.setState({
-        registerSuccess: true,
-      });
-    } catch (error) {
-      alert('오류가 발생했습니다. 다시 시도해 보세요.');
-    }
-  };
   render() {
     const { registerSuccess } = this.state;
     if (registerSuccess) {
@@ -31,18 +18,16 @@ class Register extends Component {
       return <Redirect to="/" />;
     }
     return (
-      <React.Fragment>
-        <h2>회원가입</h2>
-        <form onSubmit={this.handleRegister}>
-          <label htmlFor="email">
-            EMAIL <input type="text" name="email" />
-          </label>
-          <label htmlFor="password">
-            PASSWORD <input type="password" name="password" />
-          </label>
-          <button>회원가입</button>
-        </form>
-      </React.Fragment>
+      <UserFormView func={this.props.register} buttonState="회원가입">
+        <div className={s.help}>
+          <p>
+            계정이 있습니까?
+            <Link to="/login">
+              <span className={s.linkToRegister}>로그인</span>
+            </Link>
+          </p>
+        </div>
+      </UserFormView>
     );
   }
 }

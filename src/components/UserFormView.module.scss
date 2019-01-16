@@ -1,0 +1,34 @@
+.wrapper {
+  background-color: #eee;
+  width: 100vw;
+  height: 100vh;
+}
+
+.loginBox {
+  padding: 2rem;
+  background-color: #fff;
+  width: 300px;
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 5px;
+}
+.hidden {
+  display: none;
+}
+.input {
+  display: block;
+  margin: 2rem 0;
+  width: 100%;
+  border: 1px solid #eee;
+  padding: 1.2rem;
+}
+.loginButton {
+  display: block;
+  margin: 2rem 0;
+  width: 100%;
+  background-color: #db4c3e;
+  color: #fff;
+  padding: 1.2rem;
+}
