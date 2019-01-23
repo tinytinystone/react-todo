@@ -17,6 +17,8 @@ import {
   faBell,
 } from '@fortawesome/free-solid-svg-icons';
 
+import './App.scss';
+
 library.add(faCalendar, faTag, faClock, faFlag, faComment, faCog, faBell);
 
 class App extends Component {

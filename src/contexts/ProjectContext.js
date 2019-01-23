@@ -18,6 +18,8 @@ class ProjectProvider extends Component {
       projects: [],
       addProject: this.addProject,
       refreshPage: this.refreshPage,
+      editProject: this.editProject,
+      // deleteProject: this.editProject,
     };
   }
   // 원인 -
@@ -41,8 +43,16 @@ class ProjectProvider extends Component {
     await api.post('/projects', { title });
     this.refreshPage();
   };
+  // deleteProject = async projectId => {
+  //   const res = await api.delete('/projects/', { id: projectId });
+  //   console.log(res);
+  //   this.refreshPage();
+  // };
+  editProject = async (projectId, title) => {
+    await api.patch(`/projects/${projectId}`, { title });
+    this.refreshPage();
+  };
   refreshPage = async () => {
-    console.log('ProjectProvider refreshPage');
     const { data: projects } = await api.get('projects');
     this.setState({ projects });
   };

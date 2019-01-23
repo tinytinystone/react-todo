@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import TodoForm from '../containers/TodoForm';
 
-import s from './ModalTodoForm.module.scss';
+import './ModalTodoForm.scss';
 
 export default class ModalTodoForm extends Component {
   render() {
     return (
-      <div className={s.wrap}>
+      <div className="wrapModal">
+        <h2>빠른 추가</h2>
         <TodoForm />
-        <button onClick={this.props.addTodo}>X</button>
+        <button onClick={this.props.handleQuickTaskClick}>X</button>
       </div>
     );
   }

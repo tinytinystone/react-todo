@@ -9,10 +9,10 @@ class Layout extends Component {
     const { location } = this.props;
     return (
       <React.Fragment>
-        {/* 
-          AFTER REVIEW: Header 내부 child 삭제
-        */}
-        <Header key={location.pathname} />
+        <Header
+          key={location.pathname}
+          handleQuickTaskClick={this.props.handleQuickTaskClick}
+        />
         <main className={s.main}>{this.props.children}</main>
       </React.Fragment>
     );

@@ -6,23 +6,31 @@ import { withRouter, Route } from 'react-router-dom';
 import { TodoProvider } from '../contexts/TodoContext';
 import { withUser } from '../contexts/UserContext';
 import { ProjectProvider } from '../contexts/ProjectContext';
+import classNames from 'classnames';
+import ModalTodoForm from '../components/ModalTodoForm';
 
 class TodoListPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showForm: false,
+      showAddTask: false,
+      showQuickAddTask: false,
     };
   }
-  handleClick = () => {
+  handleAddTaskClick = () => {
     this.setState(prevState => ({
-      showForm: !prevState.showForm,
+      showAddTask: !prevState.showAddTask,
+    }));
+  };
+  handleQuickTaskClick = () => {
+    this.setState(prevState => ({
+      showQuickAddTask: !prevState.showQuickAddTask,
     }));
   };
   render() {
-    // const projectWelcome = this.pros.projects.find(
-    //   p => p.title === '환영합니다👋'
-    // );
+    const overlayClass = classNames({
+      showQuickAddTask: this.state.showQuickAddTask,
+    });
     return (
       <ProjectProvider>
         <Route
@@ -31,11 +39,20 @@ class TodoListPage extends Component {
             const projectId = match.params.projectId;
             return (
               <TodoProvider key={projectId} currentProjectId={projectId}>
-                <Layout>
+                <div className={overlayClass} />
+                <Layout
+                  handleQuickTaskClick={this.handleQuickTaskClick}
+                  showQuickAddTask={this.state.showQuickAddTask}
+                >
                   <TodoList key={projectId} />
-                  <button onClick={this.handleClick}>작업 추가</button>
-                  {this.state.showForm && <TodoForm />}
+                  <button onClick={this.handleAddTaskClick}>작업 추가</button>
+                  {this.state.showAddTask && <TodoForm />}
                 </Layout>
+                {this.state.showQuickAddTask && (
+                  <ModalTodoForm
+                    handleQuickTaskClick={this.handleQuickTaskClick}
+                  />
+                )}
               </TodoProvider>
             );
           }}

@@ -19,7 +19,13 @@ class TodoList extends Component {
     });
   };
   render() {
-    const { todos, projects, currentProjectId, completeTodo } = this.props;
+    const {
+      todos,
+      projects,
+      currentProjectId,
+      completeTodo,
+      editTodo,
+    } = this.props;
     const { loading } = this.state;
     const incompleteTodos = todos.filter(t => t.complete === false);
     const completedTodos = todos.filter(t => t.complete === true);
@@ -30,6 +36,7 @@ class TodoList extends Component {
           currentProjectId={currentProjectId}
           projects={projects}
           completeTodo={completeTodo}
+          editTodo={editTodo}
           loading={loading}
         />
         <CompletedTodoListView

@@ -11,6 +11,7 @@ class TodoProvider extends Component {
       refreshTodoList: this.refreshTodoList,
       completeTodo: this.completeTodo,
       addTodo: this.addTodo,
+      editTodo: this.editTodo,
       currentProjectId: this.props.currentProjectId,
     };
   }
@@ -22,6 +23,13 @@ class TodoProvider extends Component {
       '/projects/' + this.state.currentProjectId + '/todos'
     );
     this.setState({ todos });
+  };
+  editTodo = async (todoId, title) => {
+    await api.patch('/todos/' + todoId, {
+      title,
+      complete: false,
+    });
+    this.refreshTodoList();
   };
   completeTodo = async todoId => {
     await api.patch('/todos/' + todoId, {

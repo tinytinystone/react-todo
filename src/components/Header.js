@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 
@@ -17,20 +16,18 @@ class Header extends Component {
     super(props);
     this.state = {
       toggleOn: false,
-      showForm: false,
+      showQuickAddTask: false,
       showSetting: false,
       logoutSuccess: false,
     };
   }
-  addTodo = () => {
-    this.setState(prevState => ({ showForm: !prevState.showForm }));
+  openAddTodoModal = () => {
+    this.setState(prevState => ({
+      showQuickAddTask: !prevState.showQuickAddTask,
+    }));
+    this.props.handleQuickTaskClick();
   };
   render() {
-    /*
-      AFTER REVIEW:
-      menuToggle 과 menuClose 클래스가 정확히 반대의 역할을 하고 있기 때문에,
-      menuClose 삭제
-    */
     const toggleClass = classNames(s.menubar, {
       [s.menuToggle]: this.state.toggleOn,
     });
@@ -51,10 +48,7 @@ class Header extends Component {
           />
           <input type="text" placeholder="빠른검색" className={s.quickFind} />
           <ul className={s.itemList}>
-            {/* 
-              AFTER REVIEW: 배열을 순회하는 것이 아니므로 key prop 삭제
-            */}
-            <li className={s.item} onClick={this.addTodo}>
+            <li className={s.item} onClick={this.openAddTodoModal}>
               +
             </li>
             <li
@@ -62,9 +56,7 @@ class Header extends Component {
               onClick={() => {
                 this.props.logout();
                 alert('로그아웃 되었습니다.');
-                this.setState({
-                  logoutSuccess: true,
-                });
+                this.setState({ logoutSuccess: true });
               }}
             >
               logout
@@ -83,7 +75,6 @@ class Header extends Component {
               <FontAwesomeIcon icon="cog" />
             </li>
           </ul>
-          {this.state.showForm && <ModalTodoForm addTodo={this.addTodo} />}
         </header>
         {this.state.toggleOn && <Nav />}
         {this.state.showSetting && <Setting />}
