@@ -9,6 +9,7 @@ class TodoForm extends Component {
     super(props);
     this.state = {
       loading: true,
+      currentTodo: [],
     };
   }
   render() {

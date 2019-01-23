@@ -10,12 +10,13 @@ class TodoListView extends Component {
     this.state = {
       currentTodo: [],
       showEditForm: false,
+      todoIdEditing: null,
     };
   }
   componentDidMount = () => {
-    const { incompleteTodos } = this.props;
+    const { currentTodos } = this.props;
     const currentTodo = [];
-    for (let todo of incompleteTodos) {
+    for (let todo of currentTodos) {
       currentTodo.push(todo.title);
     }
     this.setState({
@@ -26,34 +27,67 @@ class TodoListView extends Component {
     e.preventDefault();
     this.props.completeTodo(todoId);
   };
-  handleTodoFormInputChange = (e, index) => {
-    const title = e.target.value;
-    this.setState(prevState => {
-      prevState.currentTodo[index] = title;
-      return {
-        currentTodo: prevState.currentTodo.slice(),
-      };
+  handleEditTodo = e => {
+    e.preventDefault();
+    const title = e.target.elements.title.value;
+    this.props.editTodo(this.state.todoIdEditing, title);
+  };
+  handleShowEditForm = id => {
+    this.setState({
+      todoIdEditing: id,
     });
   };
-  handleEditTodo = (e, todoId, index) => {
-    e.preventDefault();
-    this.props.editTodo(todoId, this.state.currentTodo[index]);
-  };
-  handleShowEditForm = () => {
-    this.setState(prevState => ({
-      showEditForm: !prevState.showEditForm,
-    }));
-  };
   render() {
-    const { incompleteTodos, projects, currentProjectId } = this.props;
-    const project = projects.find(
-      p => parseInt(p.id) === parseInt(currentProjectId)
-    );
+    const { currentTodos, projects } = this.props;
+    const { todoIdEditing } = this.state;
     return (
-      <React.Fragment>
-        <ul>
-          {project && <h1 className={s.project}>{project.title}</h1>}
-          {incompleteTodos.map((todo, index) => {
+      <ul>
+        {currentTodos.map(todo => {
+          if (todo.id === todoIdEditing) {
+            return (
+              <div>
+                <form onSubmit={this.handleEditTodo}>
+                  <div>
+                    <input type="text" name="title" defaultValue={todo.title} />
+                    <select
+                      name="project"
+                      value={this.state.selectedProjectId}
+                      onChange={this.handleChange}
+                    >
+                      {projects.map(p => (
+                        <option key={p.id} value={p.id}>
+                          {p.title}
+                        </option>
+                      ))}
+                    </select>
+                    <input
+                      type="text"
+                      name="due-date"
+                      defaultValue="12월29일"
+                    />
+                  </div>
+                  <button>전송</button>
+                  <div>
+                    <span>
+                      <FontAwesomeIcon icon="calendar" />
+                    </span>
+                    <span>
+                      <FontAwesomeIcon icon="tag" />
+                    </span>
+                    <span>
+                      <FontAwesomeIcon icon="clock" />
+                    </span>
+                    <span>
+                      <FontAwesomeIcon icon="flag" />
+                    </span>
+                    <span>
+                      <FontAwesomeIcon icon="comment" />
+                    </span>
+                  </div>
+                </form>
+              </div>
+            );
+          } else {
             return (
               <li key={todo.id}>
                 <div className={s.list} onClick={this.handleEditTodo}>
@@ -67,70 +101,21 @@ class TodoListView extends Component {
                             onChange={e => this.handleComplete(e, todo.id)}
                           />
                         </td>
-                        <td onClick={this.handleShowEditForm}>
+                        <td>
+                          <span>{todo.order}</span>
+                        </td>
+                        <td onClick={() => this.handleShowEditForm(todo.id)}>
                           <span className={s.title}>{todo.title}</span>
                         </td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
-                {this.state.showEditForm && (
-                  <div>
-                    <form
-                      onSubmit={e => this.handleEditTodo(e, todo.id, index)}
-                    >
-                      <div>
-                        <input
-                          type="text"
-                          name="title"
-                          value={this.state.currentTodo[index]}
-                          onChange={e =>
-                            this.handleTodoFormInputChange(e, index)
-                          }
-                        />
-                        <select
-                          name="project"
-                          value={this.state.selectedProjectId}
-                          onChange={this.handleChange}
-                        >
-                          {projects.map(p => (
-                            <option key={p.id} value={p.id}>
-                              {p.title}
-                            </option>
-                          ))}
-                        </select>
-                        <input
-                          type="text"
-                          name="due-date"
-                          defaultValue="12월29일"
-                        />
-                      </div>
-                      <button>전송</button>
-                      <div>
-                        <span>
-                          <FontAwesomeIcon icon="calendar" />
-                        </span>
-                        <span>
-                          <FontAwesomeIcon icon="tag" />
-                        </span>
-                        <span>
-                          <FontAwesomeIcon icon="clock" />
-                        </span>
-                        <span>
-                          <FontAwesomeIcon icon="flag" />
-                        </span>
-                        <span>
-                          <FontAwesomeIcon icon="comment" />
-                        </span>
-                      </div>
-                    </form>
-                  </div>
-                )}
               </li>
             );
-          })}
-        </ul>
-      </React.Fragment>
+          }
+        })}
+      </ul>
     );
   }
 }

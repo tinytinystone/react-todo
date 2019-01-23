@@ -6,29 +6,30 @@ class TodoFormView extends Component {
     super(props);
     this.state = {
       selectedProjectId: props.currentProjectId,
+      currentTodoTitle: '',
     };
   }
-  handleChange = e => {
+  handleProjectChange = e => {
     const selectedProjectId = e.target.value;
     this.setState({
       selectedProjectId,
     });
   };
-  handleSubmit = e => {
+  handleSubmitTodo = e => {
     e.preventDefault();
     const title = e.target.elements.title.value;
-    this.props.addTodo(this.state.selectedProjectId, title);
+    this.props.handleTodo(this.state.selectedProjectId, title);
   };
   render() {
     const { projects } = this.props;
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmitTodo}>
         <div>
           <input type="text" name="title" />
           <select
             name="project"
             value={this.state.selectedProjectId}
-            onChange={this.handleChange}
+            onChange={this.handleProjectChange}
           >
             {projects.map(p => (
               <option key={p.id} value={p.id}>
